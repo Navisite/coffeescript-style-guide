@@ -231,7 +231,28 @@ file_name.coffee
 ```
 
 ### Naming Conventions for Require Imports
-stuff
+
+Every Spine level object should have a suffix with the type of object it is
+   - ThingView for eco templates
+	- ThingModel for models
+	- ThingController for controllers
+
+Any instance of an object should be in lower case (e.g. service)
+
+Any class should be the same as the class name, with suffix if spine object (e.g. OrgModel)
+
+Any import of constants should be in ALL_CAPS_WITH_UNDERSCORE (e.g. EVENT_TYPE)
+
+```coffeescript
+define [
+  'app/controllers/orgs'
+  'app/models/vapp'
+  'app/views/titlebar'
+  'app/lib/session'
+  'app/shared/event_types'
+], (OrgsController, VappModel, TitleBarView, session, EVENT_TYPE) ->
+
+```
 
 <a name="functions"/>
 ## Functions
