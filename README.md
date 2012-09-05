@@ -205,7 +205,11 @@ _(The **official** CoffeeScript convention is camelcase, because this simplifies
 Classes should be named without any type information in the name.  Class not ClassModel.  Classes referring to lists or collections of things should have their names pluralized.
 
 ```coffeescript
-class Classes
+class Class # Yes
+class ClassModel # No
+
+class Classes # Yes
+class ClassList # No
 ```
 
 For constants, use all uppercase with underscores:
@@ -225,6 +229,9 @@ File names should be all lower case separate with underscore:
 ```coffeescript
 file_name.coffee
 ```
+
+### Naming Conventions for Require Imports
+stuff
 
 <a name="functions"/>
 ## Functions
