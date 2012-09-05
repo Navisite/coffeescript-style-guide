@@ -202,6 +202,12 @@ Use `CamelCase` (with a leading uppercase character) to name all classes. _(This
 
 _(The **official** CoffeeScript convention is camelcase, because this simplifies interoperability with JavaScript. For more on this decision, see [here][coffeescript-issue-425].)_
 
+Classes should be named without any type information in the name.  Class not ClassModel.  Classes referring to lists or collections of things should have their names pluralized.
+
+```coffeescript
+class Classes
+```
+
 For constants, use all uppercase with underscores:
 
 ```coffeescript
@@ -212,6 +218,12 @@ Methods and variables that are intended to be "private" should begin with a lead
 
 ```coffeescript
 _privateMethod: ->
+```
+
+File names should be all lower case separate with underscore:
+
+```coffeescript
+file_name.coffee
 ```
 
 <a name="functions"/>
