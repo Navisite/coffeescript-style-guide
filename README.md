@@ -234,8 +234,8 @@ file_name.coffee
 
 Every Spine level object should have a suffix with the type of object it is
    - ThingView for eco templates
-	- ThingModel for models
-	- ThingController for controllers
+   - ThingModel for models
+   - ThingController for controllers
 
 Any instance of an object should be in lower case (e.g. service)
 
