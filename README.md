@@ -89,6 +89,17 @@ These statements should be grouped in the following order:
 2. Third party library imports
 3. Local imports _(imports specific to this application or library)_
 
+In terms of our Spine project, here is a slightly expanded version of that order:
+
+1. Global modules
+2. SDK/non-app modules
+3. Shared app modules
+4. Spine controllers
+5. Spine models
+6. Spine views
+
+Within each category, try to keep the list ordered alphabetically and by path.
+
 <a name="whitespace"/>
 ## Whitespace in Expressions and Statements
 
