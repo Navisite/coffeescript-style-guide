@@ -254,6 +254,8 @@ Any class should be the same as the class name, with suffix if spine object (e.g
 
 Any import of constants should be in ALL_CAPS_WITH_UNDERSCORE (e.g. EVENT_TYPE)
 
+Imports should each be on a separate line to make our diffs easier to read and merges less painful.
+
 ```coffeescript
 define [
   'app/controllers/orgs'
@@ -261,7 +263,13 @@ define [
   'app/views/titlebar'
   'app/lib/session'
   'app/shared/event_types'
-], (OrgsController, VappModel, TitleBarView, session, EVENT_TYPE) ->
+], (
+  OrgsController
+  VappModel
+  TitleBarView
+  session
+  EVENT_TYPE
+) ->
 
 ```
 
