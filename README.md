@@ -79,10 +79,6 @@ UTF-8 is the preferred source file encoding.
 
 If using a module system (CommonJS Modules, AMD, etc.), `require` statements should be placed on separate lines.
 
-```coffeescript
-require 'lib/setup'
-Backbone = require 'backbone'
-```
 These statements should be grouped in the following order:
 
 1. Standard library imports _(if a standard library exists)_
@@ -100,6 +96,39 @@ In terms of our Spine project, here is a slightly expanded version of that order
 
 Within each category, try to keep the list ordered alphabetically and by path.
 
+Every Spine level object should have a suffix with the type of object it is:
+
+  * ThingView for eco templates
+  * ThingModel for models
+  * ThingController for controllers
+
+Any instance of an object should be in lower case (e.g. service).
+
+Any class should be the same as the class name, with suffix if a spine object (e.g. OrgModel).
+
+Any import of constants should be in ALL_CAPS_WITH_UNDERSCORE (e.g. EVENT_TYPE).
+
+Imports should each be on a separate line to make our diffs easier to read and merges less painful.
+
+An example of correct imports in our Spine application (using AMD style):
+
+```coffeescript
+define [
+  'app/shared/event_types'
+  'app/lib/session'
+  'app/controllers/orgs'
+  'app/models/vapp'
+  'app/views/titlebar'
+], (
+  EVENT_TYPE
+  session
+  OrgsController
+  VappModel
+  TitleBarView
+) ->
+
+```
+
 <a name="whitespace"/>
 ## Whitespace in Expressions and Statements
 
@@ -108,15 +137,15 @@ Avoid extraneous whitespace in the following situations:
 - Immediately inside parentheses, brackets or braces
 
     ```coffeescript
-       ($ 'body') # Yes
-       ( $ 'body' ) # No
+       ($('body')) # Yes
+       ( $('body') ) # No
     ```
 
 - Immediately before a comma
 
     ```coffeescript
-       console.log x, y # Yes
-       console.log x , y # No
+       console.log(x, y) # Yes
+       console.log(x , y) # No
     ```
 
 Additional recommendations:
@@ -241,38 +270,6 @@ File names should be all lower case separate with underscore:
 file_name.coffee
 ```
 
-### Naming Conventions for Require Imports
-
-Every Spine level object should have a suffix with the type of object it is
-   - ThingView for eco templates
-   - ThingModel for models
-   - ThingController for controllers
-
-Any instance of an object should be in lower case (e.g. service)
-
-Any class should be the same as the class name, with suffix if spine object (e.g. OrgModel)
-
-Any import of constants should be in ALL_CAPS_WITH_UNDERSCORE (e.g. EVENT_TYPE)
-
-Imports should each be on a separate line to make our diffs easier to read and merges less painful.
-
-```coffeescript
-define [
-  'app/controllers/orgs'
-  'app/models/vapp'
-  'app/views/titlebar'
-  'app/lib/session'
-  'app/shared/event_types'
-], (
-  OrgsController
-  VappModel
-  TitleBarView
-  session
-  EVENT_TYPE
-) ->
-
-```
-
 <a name="functions"/>
 ## Functions
 
@@ -319,6 +316,32 @@ obj.value(10, 20) / obj.value(20, 10)
 print(inspect(value))
 
 new Tag(new Value(a, b), new Arg(c))
+```
+
+Be careful about chaining when having called more than one function without parentheses:
+
+```coffeescript
+
+# GOOD: no problem here, since there is only one function call
+# on the first line.
+service.post(url, ConstantsSdk.JSON_CONTAINER_CONTENT_TYPE, request, opts)
+  .then(successCallback, failedCallback)
+
+# BAD: newer version of coffeescript thinks the .then() applies
+# to the result of deferreds.push(), not service.post().
+deferreds.push service.post(url, ConstantsSdk.JSON_CONTAINER_CONTENT_TYPE, request, opts)
+  .then(successCallback, failedCallback)
+
+# GOOD: previous example fixed with dangling paren.
+deferreds.push(
+service.post(url, ConstantsSdk.JSON_CONTAINER_CONTENT_TYPE, request, opts)
+  .then(successCallback, failedCallback)
+)
+
+# GOOD: another way to fix.
+callback = service.post(url, ConstantsSdk.JSON_CONTAINER_CONTENT_TYPE, request, opts)
+  .then(successCallback, failedCallback)
+deferreds.push(callback)
 ```
 
 <a name="strings"/>
